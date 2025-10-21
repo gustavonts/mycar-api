@@ -30,3 +30,34 @@ Content-Type: application/json
     "email": "user@email.com",
     "password": "123456"
 }
+
+### update user
+# @name updateUser
+PATCH  {{baseUrl}}/user/me
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+    "name": "Gustavo 1"
+}
+
+### update password
+# @name updateUserPassword
+PATCH  {{baseUrl}}/user/me/password
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+    "currentPassword": "123456",
+    "newPassword": "654321"
+}
+
+### read user
+# @name readOneUser
+GET  {{baseUrl}}/user/me
+Authorization: Bearer {{jwtToken}}
+
+### delete one user
+# @name deleteOneUser
+DELETE   {{baseUrl}}/user/me
+Authorization: Bearer {{jwtToken}}
