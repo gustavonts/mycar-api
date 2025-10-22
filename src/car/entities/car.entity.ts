@@ -1,6 +1,7 @@
 import { User } from "src/user/entities/user.entity";
-import { Column, CreateDateColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
+@Entity()
 export class Car {
     @PrimaryGeneratedColumn('uuid')
     id: string
@@ -44,8 +45,8 @@ export class Car {
     @Column({ default: true })
     active: boolean
 
-    // @ManyToOne(() => User, user => user.cars, { eager: true })
-    // userId: User;
+    @ManyToOne(() => User, (user) => user.cars)
+    user: User;
 
     @CreateDateColumn()
     createdAt: Date;

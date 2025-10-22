@@ -1,24 +1,29 @@
 @baseUrl = http://localhost:3000
-
 @jwtToken = {{authLogin.response.body.acessToken}}
 
-GET {{baseUrl}}
+@carUuid = {{createCarOwned.response.body.id}}
+@carSlug = {{createCarOwned.response.body.slug}}
+@imagePath = {{uploadImage.response.body.url}}
+@imageUrl = {{baseUrl}}{{imagePath}}
 
-### Auth Login
+@userNameForTesting = Luiz
+@userEmailForTesting = user@email.com
+@userPasswordForTesting = 123456
+@userNewPasswordForTesting = 123456
+
+# AUTH ########################################################################
+
+### Auth login
 # @name authLogin
 POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "user@email.com",
-    "password": "123456"
+  "email": "{{userEmailForTesting}}",
+  "password": "{{userPasswordForTesting}}"
 }
 
-### Read One user
-# @name readOneUser
-GET {{baseUrl}}/user/123
-Content-Type: application/json
-Authorization: Bearer {{jwtToken}}
+# USER ########################################################################
 
 ### Create user
 # @name createUser
@@ -26,38 +31,123 @@ POST {{baseUrl}}/user
 Content-Type: application/json
 
 {
-    "name": "Gustavo",
-    "email": "user@email.com",
-    "password": "123456"
+  "name": "{{userNameForTesting}}",
+  "email": "{{userEmailForTesting}}",
+  "password": "{{userPasswordForTesting}}"
 }
 
-### update user
+### Update user
 # @name updateUser
-PATCH  {{baseUrl}}/user/me
+PATCH {{baseUrl}}/user/me
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 {
-    "name": "Gustavo 1"
+  "name": "{{userNameForTesting}} Otávio",
+  "email": "{{userEmailForTesting}}"
 }
 
-### update password
+### Update user password
 # @name updateUserPassword
-PATCH  {{baseUrl}}/user/me/password
+PATCH {{baseUrl}}/user/me/password
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 {
-    "currentPassword": "123456",
-    "newPassword": "654321"
+  "currentPassword": "{{userPasswordForTesting}}",
+  "newPassword": "{{userNewPasswordForTesting}}"
 }
 
-### read user
+### Read one user
 # @name readOneUser
-GET  {{baseUrl}}/user/me
+GET {{baseUrl}}/user/me
 Authorization: Bearer {{jwtToken}}
 
-### delete one user
+### Delete one user
 # @name deleteOneUser
-DELETE   {{baseUrl}}/user/me
+DELETE {{baseUrl}}/user/me
 Authorization: Bearer {{jwtToken}}
+
+# POST ########################################################################
+
+### Create car owned
+# @name createCartOwned
+POST {{baseUrl}}/car/me
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+    "fipeCode": "123456",
+    "brand": "Ford",
+    "model": "Focus",
+    "version": "Titanium",
+    "year": 2018,
+    "plate": "ABC1D23",
+    "fuel": "Gasolina",
+    "price": 45000.50,
+    "mileage": 75000,
+    "color": "Prata",
+    "description": "Carro bem cuidado, com todas as revisões em dia.",
+    "images": [
+        "https://via.placeholder.com/400",
+        "https://via.placeholder.com/401"
+        ],
+    "active": true
+}
+
+### Read all car public
+# @name readAllCarPublic
+GET {{baseUrl}}/car/
+
+### Read one car public
+# @name readOneCarPublic
+GET {{baseUrl}}/car/{{carSlug}}
+
+### Read all car owned
+# @name readAllCarOwned
+GET {{baseUrl}}/car/me
+Authorization: Bearer {{jwtToken}}
+
+### Read one car owned
+# @name readOneCarOwned
+GET {{baseUrl}}/car/me/{{carUuid}}
+Authorization: Bearer {{jwtToken}}
+
+### Update one car owned
+# @name updateOneCarOwned
+PATCH {{baseUrl}}/car/me/{{carUuid}}
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+  "title": "PUBLISHED Título do car",
+  "excerpt": "NOVO - Excerto",
+  "content": "NOVO - Conteúdo",
+  "published": true
+}
+
+### Delete one car owned
+# @name deleteOneCarOwned
+DELETE {{baseUrl}}/car/me/{{carUuid}}
+Authorization: Bearer {{jwtToken}}
+
+# UPLOAD ######################################################################
+
+### Upload Image
+# @name uploadImage
+POST {{baseUrl}}/upload
+Authorization: Bearer {{jwtToken}}
+Content-Type: multipart/form-data; boundary=----BryenFormBoundary
+
+------BryenFormBoundary
+Content-Disposition: form-data; name="file"; filename="image.png"
+Content-Type: image/png
+
+< ../dev/images/image.gif
+------BryenFormBoundary--
+
+### Read Image
+# @name readImage
+GET {{imageUrl}}
+
+###############################################################################

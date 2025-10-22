@@ -1,6 +1,7 @@
+import { User } from 'src/user/entities/user.entity';
 import { Car } from '../entities/car.entity';
 
-export class PostResponseDto {
+export class CarResponseDto {
   readonly id: string;
   readonly fipeCode: string;
   readonly brand: string;
@@ -15,6 +16,11 @@ export class PostResponseDto {
   readonly description?: string;
   readonly images?: string[];
   readonly active: boolean;
+  readonly user: {
+    id: string
+    name: string
+    email: string
+  };
   readonly createdAt: Date;
   readonly updatedAt: Date;
 
@@ -33,6 +39,11 @@ export class PostResponseDto {
     this.description = car.description;
     this.images = car.images;
     this.active = car.active;
+    this.user = {
+      id: car.user.id,
+      name: car.user.name,
+      email: car.user.email
+    }
     this.createdAt = car.createdAt;
     this.updatedAt = car.updatedAt;
   }

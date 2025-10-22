@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import { Car } from "src/car/entities/car.entity"
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 
 @Entity()
 export class User {
@@ -22,4 +23,8 @@ export class User {
 
     @UpdateDateColumn()
     updateAt: Date
+
+    @OneToMany(() => Car, (car) => car.user)
+    cars: Car[];
+
 }

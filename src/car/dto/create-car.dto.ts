@@ -10,6 +10,7 @@ import {
     IsUrl,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { User } from 'src/user/entities/user.entity';
 
 export class CreateCarDto {
     @IsString({ message: 'O código Fipe deve ser uma string.' })
@@ -65,10 +66,13 @@ export class CreateCarDto {
     description?: string;
 
     @IsOptional()
-    @IsUrl({require_tld: false})
+    @IsUrl({}, { each: true, message: 'Cada item do images deve ser uma URL válida.' })
     images?: string[];
 
     @IsOptional()
     @IsBoolean({ message: 'O campo ativo deve ser verdadeiro ou falso.' })
     active?: boolean;
+
+    @IsNotEmpty()
+    user: User
 }
