@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { CarModule } from './car/car.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UploadModule } from './upload/upload.module';
-import { AllExceptionsFilters } from './common/filters/all-exceptions.filter';
+import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import { APP_FILTER } from '@nestjs/core';
 
 @Module({
@@ -30,7 +28,7 @@ import { APP_FILTER } from '@nestjs/core';
   providers: [
     {
       provide: APP_FILTER,
-      useClass: AllExceptionsFilters
+      useClass: AllExceptionsFilter
     }
   ],
 })
