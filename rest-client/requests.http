@@ -141,10 +141,10 @@ Authorization: Bearer {{jwtToken}}
 Content-Type: multipart/form-data; boundary=----BryenFormBoundary
 
 ------BryenFormBoundary
-Content-Disposition: form-data; name="file"; filename="image.png"
-Content-Type: image/png
+Content-Disposition: form-data; name="file"; filename="image.jpeg"
+Content-Type: image/jpeg
 
-< ../dev/images/image.gif
+< ../dev/images/image.jpeg
 ------BryenFormBoundary--
 
 ### Read Image
