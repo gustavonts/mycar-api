@@ -23,8 +23,4 @@ export class User {
 
     @UpdateDateColumn()
     updateAt: Date
-
-    @OneToMany(() => Car, (car) => car.user)
-    cars: Car[];
-
 }

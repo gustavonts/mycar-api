@@ -16,7 +16,7 @@ export class CarResponseDto {
   readonly description?: string;
   readonly images?: string[];
   readonly active: boolean;
-  readonly user: {
+  readonly user?: {
     id: string
     name: string
     email: string
@@ -39,10 +39,14 @@ export class CarResponseDto {
     this.description = car.description;
     this.images = car.images;
     this.active = car.active;
-    this.user = {
-      id: car.user.id,
-      name: car.user.name,
-      email: car.user.email
+    if (car.user) {
+      this.user = {
+        id: car.user.id,
+        name: car.user.name,
+        email: car.user.email
+      }
+    } else {
+      this.user = undefined;
     }
     this.createdAt = car.createdAt;
     this.updatedAt = car.updatedAt;

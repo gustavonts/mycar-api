@@ -66,13 +66,10 @@ export class CreateCarDto {
     description?: string;
 
     @IsOptional()
-    @IsUrl({}, { each: true, message: 'Cada item do images deve ser uma URL válida.' })
+    @IsUrl({ require_tld: false }, { each: true, message: 'Cada item do images deve ser uma URL válida.' })
     images?: string[];
 
     @IsOptional()
     @IsBoolean({ message: 'O campo ativo deve ser verdadeiro ou falso.' })
     active?: boolean;
-
-    @IsNotEmpty()
-    user: User
 }

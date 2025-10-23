@@ -27,7 +27,8 @@ export class UserService {
     }
 
     async findOneByOrFail(userData: Partial<User>) {
-        const user = await this.userRepository.findOneBy(userData)
+        const user = await this.userRepository.findOneBy({ id: userData.id });
+
 
         if (!user) {
             throw new NotFoundException('Usuário não encontrado')

@@ -2,12 +2,9 @@
 @jwtToken = {{authLogin.response.body.acessToken}}
 
 @carUuid = {{createCarOwned.response.body.id}}
-@carSlug = {{createCarOwned.response.body.slug}}
-@imagePath = {{uploadImage.response.body.url}}
-@imageUrl = {{baseUrl}}{{imagePath}}
 
-@userNameForTesting = Luiz
-@userEmailForTesting = user@email.com
+@userNameForTesting = Gustavo
+@userEmailForTesting = user2@email.com
 @userPasswordForTesting = 123456
 @userNewPasswordForTesting = 123456
 
@@ -71,16 +68,16 @@ Authorization: Bearer {{jwtToken}}
 # POST ########################################################################
 
 ### Create car owned
-# @name createCartOwned
+# @name createCarOwned
 POST {{baseUrl}}/car/me
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 {
     "fipeCode": "123456",
-    "brand": "Ford",
-    "model": "Focus",
-    "version": "Titanium",
+    "brand": "Volks",
+    "model": "golf",
+    "version": "tsi",
     "year": 2018,
     "plate": "ABC1D23",
     "fuel": "Gasolina",
@@ -101,7 +98,7 @@ GET {{baseUrl}}/car/
 
 ### Read one car public
 # @name readOneCarPublic
-GET {{baseUrl}}/car/{{carSlug}}
+GET {{baseUrl}}/car/{{carUuid}}
 
 ### Read all car owned
 # @name readAllCarOwned
@@ -120,10 +117,11 @@ Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 {
-  "title": "PUBLISHED Título do car",
-  "excerpt": "NOVO - Excerto",
-  "content": "NOVO - Conteúdo",
-  "published": true
+    "brand": "Honda",
+    "model": "Civic",
+    "version": "exs",
+    "description": "Carro bem cuidado, com todas as revisões em dia. 1",
+    "active": true
 }
 
 ### Delete one car owned
@@ -143,11 +141,8 @@ Content-Type: multipart/form-data; boundary=----BryenFormBoundary
 Content-Disposition: form-data; name="file"; filename="image.png"
 Content-Type: image/png
 
-< ../dev/images/image.gif
-------BryenFormBoundary--
 
 ### Read Image
 # @name readImage
-GET {{imageUrl}}
 
 ###############################################################################
