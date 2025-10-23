@@ -3,6 +3,9 @@
 
 @carUuid = {{createCarOwned.response.body.id}}
 
+@imagePath = {{uploadImage.response.body.url}}
+@imageUrl = {{baseUrl}}{{imagePath}}
+
 @userNameForTesting = Gustavo
 @userEmailForTesting = user2@email.com
 @userPasswordForTesting = 123456
@@ -141,8 +144,11 @@ Content-Type: multipart/form-data; boundary=----BryenFormBoundary
 Content-Disposition: form-data; name="file"; filename="image.png"
 Content-Type: image/png
 
+< ../dev/images/image.gif
+------BryenFormBoundary--
 
 ### Read Image
 # @name readImage
+GET {{imageUrl}}
 
 ###############################################################################
