@@ -7,6 +7,8 @@ import { CarModule } from './car/car.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UploadModule } from './upload/upload.module';
+import { AllExceptionsFilters } from './common/filters/all-exceptions.filter';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [AuthModule, UserModule, CarModule, ConfigModule.forRoot({
@@ -24,7 +26,12 @@ import { UploadModule } from './upload/upload.module';
   }),
   UploadModule
 ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilters
+    }
+  ],
 })
 export class AppModule {}
