@@ -1,8 +1,9 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus , Logger} from '@nestjs/common';
 import { Response } from 'express';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
+  private readonly logger = new Logger(AllExceptionsFilter.name);
   catch(exception: unknown, host: ArgumentsHost) {
     const response = host.switchToHttp().getResponse<Response>();
 
@@ -37,6 +38,15 @@ export class AllExceptionsFilter implements ExceptionFilter {
       }
     } else {
       console.error('Unexpected error:', exception);
+    }
+    if (!(exception instanceof HttpException)) {
+      this.logger.error(
+        `Erro interno inesperado`,
+        (exception as Error).stack || `sem stack`
+      )
+    }
+    else {
+      this.logger.warn(`${status} - ${errorName}: ${messages.join(' | ')}`)
     }
 
     return response.status(status).json({
