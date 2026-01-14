@@ -1,7 +1,7 @@
 @baseUrl = http://localhost:3001
-@jwtToken = {{authLogin.response.body.acessToken}}
+@jwtToken = {{authLogin.response.body.accessToken}}
 
-@carUuid = {{createCarOwned.response.body.id}}
+@carUuid = 4a2bc409-9cec-46f1-b028-65ef1ecc80c2
 
 @imagePath = {{uploadImage.response.body.url}}
 @imageUrl = {{baseUrl}}{{imagePath}}
