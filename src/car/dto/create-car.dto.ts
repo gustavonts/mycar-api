@@ -12,8 +12,7 @@ import {
 import { Type } from 'class-transformer';
 
 export class CreateCarDto {
-    @IsString({ message: 'O código Fipe deve ser uma string.' })
-    @IsNotEmpty({ message: 'O código Fipe é obrigatório.' })
+    @IsOptional()
     fipeCode: string;
 
     @IsString({ message: 'A marca deve ser uma string.' })

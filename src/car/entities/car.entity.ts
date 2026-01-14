@@ -6,7 +6,7 @@ export class Car {
     @PrimaryGeneratedColumn('uuid')
     id: string
 
-    @Column()
+    @Column({nullable: true})
     fipeCode: string
 
     @Column()
@@ -27,8 +27,16 @@ export class Car {
     @Column()
     fuel: string
 
-    @Column('decimal', {precision: 10, scale: 2})
+    @Column('decimal', {
+        precision: 10,
+        scale: 2,
+        transformer: {
+            to: (value: number) => value,
+            from: (value: string) => Number(value),
+        },
+    })
     price: number
+
 
     @Column()
     mileage: number
