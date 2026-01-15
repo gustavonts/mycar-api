@@ -4,7 +4,6 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import type { AuthenticatedRequest } from 'src/auth/types/authenticated-request';
 import { CreateCarDto } from './dto/create-car.dto';
 import { CarResponseDto } from './dto/car-response.dto';
-import { User } from 'src/user/entities/user.entity';
 import { UpdateCarDto } from './dto/update-car.dto';
 
 @Controller('car')
@@ -75,5 +74,4 @@ export class CarController {
     }
     return cars.map(car => new CarResponseDto(car))
   }
-
 }

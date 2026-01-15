@@ -5,7 +5,6 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { HashingService } from 'src/common/hashing/hashing.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { truncate } from 'fs';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @Injectable()
@@ -28,7 +27,6 @@ export class UserService {
 
     async findOneByOrFail(userData: Partial<User>) {
         const user = await this.userRepository.findOneBy({ id: userData.id });
-
 
         if (!user) {
             throw new NotFoundException('Usuário não encontrado')

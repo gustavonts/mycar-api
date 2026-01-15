@@ -1,4 +1,3 @@
-import { User } from 'src/user/entities/user.entity';
 import { Car } from '../entities/car.entity';
 
 export class CarResponseDto {

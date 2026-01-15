@@ -1,4 +1,3 @@
-import { Car } from "src/car/entities/car.entity"
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 
 @Entity()

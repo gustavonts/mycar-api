@@ -37,7 +37,6 @@ export class Car {
     })
     price: number
 
-
     @Column()
     mileage: number
 

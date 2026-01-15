@@ -1,5 +1,4 @@
-import { Param, Get, Controller, Post, Body, UseGuards, Req, Patch, Delete } from '@nestjs/common';
-import { CustomParseIntPipe } from 'src/common/pipes/custom-parse-int-pipe.pipe';
+import { Get, Controller, Post, Body, UseGuards, Req, Patch, Delete } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from './user.service';

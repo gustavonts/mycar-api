@@ -4,7 +4,6 @@ import { UserService } from "src/user/user.service";
 import { HashingService } from "src/common/hashing/hashing.service";
 import { JwtService } from "@nestjs/jwt";
 import { JwtPayload } from "./types/jwt-paylod.type";
-import { log } from "console";
 
 @Injectable()
 export class AuthService {
