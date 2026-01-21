@@ -66,7 +66,16 @@ export class CarController {
     return new CarResponseDto(car);
   }
 
-  @Get()
+  @Get('admin/all')
+  async findAllAdmin() {
+    const cars = await this.carService.findAllAdmin()
+    if (!cars) {
+      throw new Error('Erro ao buscar o anúncios.');
+    }
+    return cars.map(car => new CarResponseDto(car))
+  }
+
+  @Get('')
   async findAllPublic() {
     const cars = await this.carService.findAll({active: true})
     if (!cars) {

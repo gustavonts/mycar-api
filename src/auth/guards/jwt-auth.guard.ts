@@ -10,6 +10,4 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
         return super.handleRequest(err, user, info, context, status)
     }
-    
-    
 }

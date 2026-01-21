@@ -6,6 +6,7 @@ export class UserResponseDto {
     readonly email: string
     readonly createdAt: Date
     readonly updatedAt: Date
+    readonly active: boolean
 
     constructor(user: User) {
         this.id = user.id
@@ -13,5 +14,6 @@ export class UserResponseDto {
         this.email = user.email
         this.createdAt = user.createdAt
         this.updatedAt = user.updateAt
+        this.active = user.active
     }
 }

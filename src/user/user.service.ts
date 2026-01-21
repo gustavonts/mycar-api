@@ -25,8 +25,18 @@ export class UserService {
         }
     }
 
-    async findOneByOrFail(userData: Partial<User>) {
+    async findOneByIdOrFail(userData: Partial<User>) {
         const user = await this.userRepository.findOneBy({ id: userData.id });
+
+        if (!user) {
+            throw new NotFoundException('Usuário não encontrado')
+        }
+
+        return user
+    }
+
+    async findOneByEmailOrFail(userData: Partial<User>) {
+        const user = await this.userRepository.findOneBy({ email: userData.email });
 
         if (!user) {
             throw new NotFoundException('Usuário não encontrado')
@@ -42,7 +52,8 @@ export class UserService {
         const newUser: CreateUserDto = {
             name: dto.name,
             email: dto.email,
-            password: hashedPassword
+            password: hashedPassword,
+            active: true
         }
 
         const created = await this.userRepository.save(newUser)
@@ -51,13 +62,19 @@ export class UserService {
     }
 
     async update(id: string, dto: UpdateUserDto) {
-        if(!dto.name && !dto.email) {
+        if(!dto.name && !dto.email && !dto.active) {
             throw new BadRequestException('Dados não enviados')
         }
 
-        const user = await this.findOneByOrFail({id})
+        const user = await this.findOneByIdOrFail({id})
 
-        user.name = dto.name ?? user.name
+        if (dto.name !== undefined) {
+            user.name = dto.name
+        }
+
+        if (dto.active !== undefined) {
+            user.active = dto.active
+        }
 
         if(dto.email && dto.email !== user.email) {
             await this.failIfEmailExists(dto.email)
@@ -69,7 +86,7 @@ export class UserService {
     }
 
     async updatePassword(id: string, dto: UpdatePasswordDto) {
-        const user = await this.findOneByOrFail({id})
+        const user = await this.findOneByIdOrFail({id})
 
         const isCurrentPasswordValid = await this.hashingService.compare(
             dto.currentPassword,
@@ -94,11 +111,11 @@ export class UserService {
         return this.userRepository.findOneBy({id}) 
     }
 
-    async remove(id: string) {
-        const user = await this.findOneByOrFail({id})
-        await this.userRepository.delete({id})
-        return user
-    }
+    // async remove(id: string) {
+    //     const user = await this.findOneByIdOrFail({id})
+    //     await this.userRepository.delete({id})
+    //     return user
+    // }
 
     save(user: User) {
         return this.userRepository.save(user)

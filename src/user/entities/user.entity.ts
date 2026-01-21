@@ -17,6 +17,9 @@ export class User {
     @Column({ default: false })
     forceLogout: boolean
 
+    @Column({ default: true })
+    active: boolean
+
     @CreateDateColumn()
     createdAt: Date
 

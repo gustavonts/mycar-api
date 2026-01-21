@@ -72,6 +72,18 @@ export class CarService {
     return cars
   }
 
+  async findAllAdmin() {
+
+    const cars = await this.carRepository.find({
+      order: {
+        createdAt: 'DESC'
+      },
+      relations: ['user']
+    })
+
+    return cars
+  }
+
   async findAll(carData: Partial<Car>) {
     const { images, ...filters } = carData
 

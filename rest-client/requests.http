@@ -7,7 +7,7 @@
 @imageUrl = {{baseUrl}}{{imagePath}}
 
 @userNameForTesting = Gustavo
-@userEmailForTesting = user2@email.com
+@userEmailForTesting = gugaguedes11@gmail.com
 @userPasswordForTesting = 123456
 @userNewPasswordForTesting = 123456
 
@@ -44,7 +44,8 @@ Authorization: Bearer {{jwtToken}}
 
 {
   "name": "{{userNameForTesting}} Otávio",
-  "email": "{{userEmailForTesting}}"
+  "email": "{{userEmailForTesting}}",
+  "active": true
 }
 
 ### Update user password
@@ -62,6 +63,10 @@ Authorization: Bearer {{jwtToken}}
 # @name readOneUser
 GET {{baseUrl}}/user/me
 Authorization: Bearer {{jwtToken}}
+
+### Read one user
+# @name readOneUserById
+GET {{baseUrl}}/user/gugaguedes11@gmail.com
 
 ### Delete one user
 # @name deleteOneUser

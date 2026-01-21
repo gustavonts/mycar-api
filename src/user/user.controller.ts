@@ -1,4 +1,4 @@
-import { Get, Controller, Post, Body, UseGuards, Req, Patch, Delete } from '@nestjs/common';
+import { Get, Controller, Post, Body, UseGuards, Req, Patch, Delete, Param, ParseUUIDPipe } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from './user.service';
@@ -18,8 +18,17 @@ export class UserController {
     @UseGuards(JwtAuthGuard)
     @Get('me')
     async findOne(@Req() req: AuthenticatedRequest) {
-        const user = await this.userService.findOneByOrFail({id: req.user.id})
+        const user = await this.userService.findOneByIdOrFail({id: req.user.id})
         return new UserResponseDto(user)
+    }
+
+    @Get(':email')
+        async findOnePublic(@Param('email') id: string) {
+        const car = await this.userService.findOneByEmailOrFail({id})
+        if (!car) {
+            throw new Error('Erro ao buscar o anúncio.');
+        }
+        return new UserResponseDto(car);
     }
 
     @Post()
@@ -42,10 +51,10 @@ export class UserController {
         return new UserResponseDto(user)
     }
 
-    @UseGuards(JwtAuthGuard)
-    @Delete('me')
-    async remove(@Req() req: AuthenticatedRequest) {
-        const user = await this.userService.remove(req.user.id)
-        return new UserResponseDto(user)
-    }
+    // @UseGuards(JwtAuthGuard)
+    // @Delete('me')
+    // async remove(@Req() req: AuthenticatedRequest) {
+    //     const user = await this.userService.remove(req.user.id)
+    //     return new UserResponseDto(user)
+    // }
 }
