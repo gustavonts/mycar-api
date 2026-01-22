@@ -8,8 +8,8 @@
 
 @userNameForTesting = Gustavo
 @userEmailForTesting = gugaguedes11@gmail.com
-@userPasswordForTesting = 123456
-@userNewPasswordForTesting = 123456
+@userPasswordForTesting = 1234567
+@userNewPasswordForTesting = 1234567
 
 # AUTH ########################################################################
 
@@ -62,6 +62,11 @@ Authorization: Bearer {{jwtToken}}
 ### Read one user
 # @name readOneUser
 GET {{baseUrl}}/user/me
+Authorization: Bearer {{jwtToken}}
+
+### Read all users
+# @name readAllUsers
+GET {{baseUrl}}/user/all/users
 Authorization: Bearer {{jwtToken}}
 
 ### Read one user

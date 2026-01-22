@@ -26,6 +26,10 @@ export class AuthService {
             throw error
         }
 
+        if (!user.active) {
+            throw error
+        }
+
         const jwtPayload: JwtPayload = {
             sub: user.id,
             email: user.email

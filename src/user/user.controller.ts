@@ -31,6 +31,17 @@ export class UserController {
         return new UserResponseDto(car);
     }
 
+    @UseGuards(JwtAuthGuard)
+    @Get('all/users')
+    async findAllAdmin(@Req() req: AuthenticatedRequest) {
+        const users = await this.userService.findAllAdmin()
+        if (!users) {
+              throw new Error('Erro ao buscar o usuários.');
+            }
+        return users.map(car => new UserResponseDto(car))
+    }
+            
+
     @Post()
     async create(@Body() dto: CreateUserDto) {
         const user = await this.userService.create(dto)

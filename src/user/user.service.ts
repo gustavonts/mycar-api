@@ -45,6 +45,16 @@ export class UserService {
         return user
     }
 
+    async findAllAdmin() {
+
+        const users = await this.userRepository.find({
+        order: {
+            createdAt: 'DESC'
+        }})
+
+        return users
+    }
+
     async create(dto: CreateUserDto) {
         await this.failIfEmailExists(dto.email)
         

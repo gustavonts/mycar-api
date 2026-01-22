@@ -43,17 +43,17 @@ export class CarController {
   @UseGuards(JwtAuthGuard)
   @Patch('me/:id')
   async update(@Param('id', ParseUUIDPipe) id: string, @Req() req: AuthenticatedRequest, @Body() dto: UpdateCarDto) {
-    const car = await this.carService.update({id}, dto, req.user)
+    const car = await this.carService.update({id}, dto)
     if (!car) {
-      throw new Error('Erro ao criar o anúncio.');
+      throw new Error('Erro ao atualizar o anúncio.');
     }
     return new CarResponseDto(car);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete('me/:id')
+  @Delete(':id')
   async remove(@Param('id', ParseUUIDPipe) id: string, @Req() req: AuthenticatedRequest) {
-      const car = await this.carService.remove({id}, req.user)
+      const car = await this.carService.remove({id})
       return new CarResponseDto(car)
   }
 

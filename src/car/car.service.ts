@@ -131,12 +131,12 @@ export class CarService {
     return created
   }
 
-  async update(carData: Partial<Car>, dto: UpdateCarDto, user: User) {
+  async update(carData: Partial<Car>, dto: UpdateCarDto) {
     if(Object.length === 0) {
       throw new BadRequestException('Dados não enviados')
     }
 
-    const car = await this.findOneOwnedOrFail(carData, user)
+    const car = await this.findOneOrFail(carData)
 
     car.fipeCode = dto.fipeCode ?? car.fipeCode
     car.brand = dto.brand ?? car.brand
@@ -155,7 +155,7 @@ export class CarService {
     return this.carRepository.save(car)
   }
 
-  async remove(carData: Partial<Car>, user: User) {
+  async remove(carData: Partial<Car>) {
     const car = await this.carRepository.findOne({
       where: { id: carData.id },
       relations: ['user']
